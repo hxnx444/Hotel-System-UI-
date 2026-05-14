@@ -1,74 +1,47 @@
 package Hotel;
-
-
-// EXPLANATION: THE INTERFACE (example for explaining :The Contract)
-
-/* 1. WHAT IS IT? 'Comparable' is a built-in Java interface.
-    Think of it as a strict rulebook or contract.
-    The Rule: "Any class that implements me MUST have a method called 'compareTo'."
-
- 2. SIGNING THE CONTRACT
-   By writing 'implements Comparable<Room>', this class "signs" the contract.
-  It promises Java: "I guarantee I will write a compareTo method."
-  zsw*/
+//----Interface----
+// Implementing Comparable here so we can easily sort a list of rooms by price later
 public class Room implements Comparable<Room> {
-
-    //FIELDS (Attributes)
     private int roomNumber;
-    private String type; // e.g., "Single", "Double", "Suite"
+    private String type;
     private double price;
-    private boolean isAvailable; // Tracks if the room is free (true) or booked (false)
+    private boolean available;
 
-    //CONSTRUCTOR
     public Room(int roomNumber, String type, double price) {
         this.roomNumber = roomNumber;
         this.type = type;
         this.price = price;
-        this.isAvailable = true; // Default to available
+        this.available = true; // New rooms are always empty by default
     }
 
-    //GETTERS
-    public int getRoomNumber() {
-        return roomNumber;
-    }
+    public int getRoomNumber() { return roomNumber; }
+    public String getType() { return type; }
+    public double getPrice() { return price; }
 
-    public String getType() {
-        return type;
-    }
+    // JavaFX tables are picky. They look for methods specifically named
+    // "is[VariableName]" or "get[VariableName]" to fill in the columns.
+    public boolean isAvailable() { return available; }
+    public boolean getAvailable() { return available; }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    // SETTERS
     public void setAvailable(boolean available) {
-        isAvailable = available;
+        this.available = available;
     }
 
-    //DISPLAY METHOD
     public void displayRoom() {
-        System.out.println("Room " + roomNumber + " [" + type + "] - $" + price + " - " + (isAvailable ? "Available" : "Booked"));
+        String status = available ? "Available" : "Booked";
+        System.out.println("Room " + roomNumber + " [" + type + "] - $" + price + " - " + status);
     }
 
-    // 3. FULFILLING THE PROMISE (The Implementation)
-
-    /* Because we wrote 'implements' at the top, we are FORCED to write this method.
-     If we delete this, the code breaks because we broke the contract.
-
-     This logic tells Java: "When you need to sort Rooms, look at the PRICE."*/
+    // This is the actual logic for the Comparable interface.
+    // It tells Java how to compare two rooms (cheapest to most expensive).
     @Override
+    /*
+    (Override): In Room.java (overriding the compareTo method for sorting) and in Guest.java
+    (overriding the abstract displayInfo method from the User class).
+     */
     public int compareTo(Room other) {
-        // Manual comparison logic (From Scratch):
-        if (this.price > other.price) {
-            return 1;  // Current room is more expensive (move it down)
-        } else if (this.price < other.price) {
-            return -1; // Current room is cheaper (move it up)
-        } else {
-            return 0;  // Prices are equal
-        }
+        return Double.compare(this.price, other.price);
     }
 }
+/*Room.java implements an Interface: public class Room implements Comparable<Room>.
+ It overrides the compareTo() method to sort rooms by price.*/

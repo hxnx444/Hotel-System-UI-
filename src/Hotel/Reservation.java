@@ -1,50 +1,56 @@
 package Hotel;
 
-/*
- The Reservation class represents a booking made by a guest.
- It links a Guest to a Room and calculates the total cost based on the duration.
- */
 public class Reservation {
-
-    // Private fields to store reservation details
     private Guest guest;
     private Room room;
+    private int roomNumber;
     private int nights;
     private double totalPrice;
 
-    // Constructor: Initializes the reservation and automatically books the room
+    // We use this constructor when the receptionist is making a brand-new booking in the app
     public Reservation(Guest guest, Room room, int nights) {
-        this.guest = guest; //Aggregation
-        //Definition: One class "has" another class, but the child can exist independently.
-        //If you destroy the parent, the child survives. This is a "weak" ownership.
+        this.guest = guest;
         this.room = room;
+        /*Aggregation: A Reservation "has-a" Guest and "has-a" Room.
+        If you look at the top of Reservation.java, you will see it stores these as variables: private Guest guest; and private Room room;.
+        If a reservation is deleted, the Room and Guest still exist independently.*/
+        this.roomNumber = room.getRoomNumber();
         this.nights = nights;
-
-        // Calculate the cost immediately upon creation
         this.totalPrice = calculateTotal();
-
-        // Automatically mark the room as unavailable in the system
-        room.setAvailable(false);
     }
 
-    // Helper method to calculate cost (Price per night * Number of nights)
+    // We use this constructor when we are just downloading old bookings from the MySQL database
+    public Reservation(Guest guest, int roomNumber, int nights, double totalPrice) {
+        this.guest = guest;
+        this.room = null; // We don't need the full room object if we are just loading history
+        this.roomNumber = roomNumber;
+        this.nights = nights;
+        this.totalPrice = totalPrice;
+    }
+
     private double calculateTotal() {
+        if (room == null) return totalPrice; // Safe fallback so the app doesn't crash if room is empty
         return room.getPrice() * nights;
     }
 
-    // Getter for the total price (needed for the Payment class)
-    public double getTotalPrice() {
-        return totalPrice;
+    public double getTotalPrice() { return totalPrice; }
+    public int getNights() { return nights; }
+    public int getRoomNumber() { return roomNumber; }
+    public Room getRoom() { return room; }
+    public Guest getGuest() { return guest; }
+
+    public String getGuestName() {
+        return (guest != null) ? guest.getName() : "Unknown";
     }
 
-    /*
-      Prints a formatted summary of the reservation details.
-      Useful for showing the user what they are about to pay for.
-     */
+    public String getGuestPhone() {
+        return (guest != null) ? guest.getPhone() : "";
+    }
+
     public void showSummary() {
         System.out.println("\n--- RESERVATION SLIP ---");
-        System.out.println("Guest: " + guest.getName());
-        System.out.println("Room: " + room.getRoomNumber() + " (" + room.getType() + ")");
+        System.out.println("Guest: " + getGuestName());
+        System.out.println("Room: " + roomNumber + (room != null ? " (" + room.getType() + ")" : ""));
         System.out.println("Nights: " + nights);
         System.out.println("Total Due: $" + totalPrice);
         System.out.println("------------------------");

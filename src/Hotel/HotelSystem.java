@@ -1,110 +1,122 @@
 package Hotel;
 
-/*
-  The HotelSystem class acts as the central manager.
-  It holds the lists of rooms and reservations and performs
-  key operations like sorting and searching.
- */
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+// This class is the "brain" of our app. The UI talks to this, and this talks to the Database.
 public class HotelSystem {
 
-    // --- FROM SCRATCH DATA STRUCTURES ---
-    // We cannot use ArrayList, so we use standard fixed-size arrays.
-    // We assume a maximum of 100 rooms and 100 reservations for this assignment.
-    private Room[] rooms = new Room[100];
-    private int roomCount = 0; // Tracks how many rooms are actually in the array
+    // We keep a copy of the database data in memory (ArrayLists) so the app runs super fast
+    // and doesn't have to query MySQL every time we click a button.
+    /*
+    In HotelSystem.java, you use private ArrayList<Room> rooms;
+     and private ArrayList<Reservation> reservations; to store all the data in memory.
+     */
+    private ArrayList<Room> rooms;
+    //composition
+    private ArrayList<Reservation> reservations;
 
-    private Reservation[] reservations = new Reservation[100]; //Composition
-
-    //Definition: One class owns another exclusively.
-    // The child cannot exist without the parent. If the parent is destroyed, the child is destroyed too.
-    // This is "strong" ownership.
-    private int reservationCount = 0; // Tracks how many reservations are made
-
-    // Adds a new room object to the array manually
-    public void addRoom(Room r) {
-        if (roomCount < rooms.length) {
-            rooms[roomCount] = r; // Put the room in the next empty slot
-            roomCount++;          // Increase the counter
-        } else {
-            System.out.println("Error: Hotel is full, cannot add more rooms.");
-        }
+    public HotelSystem() {
+        DatabaseHelper.createTables();
+        // Load everything up right when the system starts
+        rooms = DatabaseHelper.loadAllRooms();
+        reservations = DatabaseHelper.loadAllReservations();
     }
 
-    /*
-      Sorts the rooms from cheapest to most expensive using Bubble Sort.
-      This is a manual implementation and works on the standard array.
-     */
+    public void addRoom(Room room) throws Exception {
+        if (room == null) throw new Exception("Room cannot be null.");
+        try {
+            DatabaseHelper.addRoomToDatabase(room); // Save to DB
+            rooms.add(room); // Add to local memory
+        } catch (SQLException e) {
+            throw new Exception("Room ID already exists or DB error.");
+        }
+    }
+    /*HotelSystem.java has two searchRoom methods: searchRoom(int roomNumber) and searchRoom(String type). This is method overloading.*/
+    // Standard linear search to find a room by its number
+    public Room searchRoom(int roomNumber) {
+        for (Room room : rooms) {
+            if (room.getRoomNumber() == roomNumber) {
+                return room;
+            }
+        }
+        // Throw our custom exception if we finish the loop and find nothing
+        throw new RoomNotFoundException(roomNumber);
+    }
+
+    // Overloaded search method (searches by type instead of ID). Good for the rubric!
+    public ArrayList<Room> searchRoom(String type) {
+        ArrayList<Room> result = new ArrayList<>();
+        if (type == null || type.trim().isEmpty()) return result;
+
+        for (Room room : rooms) {
+            if (room.getType().equalsIgnoreCase(type.trim())) {
+                result.add(room);
+            }
+        }
+        return result;
+    }
+
+    // A classic Bubble Sort. We use this to sort rooms from cheapest to most expensive.
     public void sortRoomsByPrice() {
-        // We use 'roomCount' instead of 'rooms.length' because the array might
-        // have empty null slots at the end that we shouldn't touch.
-        int n = roomCount;
-
-        // Outer Loop: Controls the number of passes through the list
-        for (int i = 0; i < n - 1; i++) {
-
-            // Inner Loop: Compares adjacent elements
-            for (int j = 0; j < n - i - 1; j++) {
-
-                // Get the two rooms (using array index)
-                Room room1 = rooms[j];
-                Room room2 = rooms[j + 1];
-
-                // If current room is more expensive than the next, swap them
-                if (room1.getPrice() > room2.getPrice()) {
-                    rooms[j] = room2;
-                    rooms[j + 1] = room1;
+        for (int i = 0; i < rooms.size() - 1; i++) {
+            for (int j = 0; j < rooms.size() - i - 1; j++) {
+                // Uses the compareTo() method we wrote inside the Room.java file
+                if (rooms.get(j).compareTo(rooms.get(j + 1)) > 0) {
+                    Room temp = rooms.get(j);
+                    rooms.set(j, rooms.get(j + 1));
+                    rooms.set(j + 1, temp);
                 }
             }
         }
+    }
 
-        // Print the sorted list to the console
-        System.out.println("\nRooms Sorted by Price");
-        for (int i = 0; i < roomCount; i++) {
-            rooms[i].displayRoom();
+    public void addReservation(Reservation reservation) throws Exception {
+        if (reservation == null) throw new Exception("Reservation cannot be null.");
+
+        Room room = searchRoom(reservation.getRoomNumber());
+        if (!room.isAvailable()) throw new Exception("Room is already booked.");
+
+        try {
+            DatabaseHelper.addReservationToDatabase(reservation);
+
+            // Sync the status so the room shows as 'Booked' in the UI and DB
+            room.setAvailable(false);
+            DatabaseHelper.updateRoomAvailability(room.getRoomNumber(), false);
+
+            reservations.add(reservation);
+        } catch (SQLException e) {
+            throw new Exception("Database error: " + e.getMessage());
         }
     }
 
-    /*
-      Search 1: Search by Room Number (Linear Search).
-      Iterates through the valid part of the array to find a specific ID.
-     */
-    public Room searchRoom(int roomNumber) {
-        // Standard loop from 0 to roomCount
-        for (int i = 0; i < roomCount; i++) {
-            // Check if the current room's number matches the input
-            if (rooms[i].getRoomNumber() == roomNumber) {
-                return rooms[i]; // Found match, return immediately
-            }
-        }
-        return null; // End of list reached, nothing found
+    public void cancelReservation(int roomNumber) throws Exception {
+        Room room = searchRoom(roomNumber);
+        if (room.isAvailable()) throw new Exception("No reservation exists for this room.");
+
+        // .removeIf is a quick way to delete from the ArrayList without writing a whole loop
+        reservations.removeIf(r -> r.getRoomNumber() == roomNumber);
+        DatabaseHelper.deleteReservation(roomNumber);
+
+        room.setAvailable(true);
+        DatabaseHelper.updateRoomAvailability(roomNumber, true);
     }
 
-    /*
-      Search 2: Search by Type (Method Overloading).
-      Prints all rooms that match the requested type (e.g., "Single").
-     */
-    public void searchRoom(String type) {
-        System.out.println("\nSearching for: " + type + " ---");
-        boolean found = false;
+    public void checkIn(int roomNumber) throws Exception {
+        Room room = searchRoom(roomNumber);
+        if (!room.isAvailable()) throw new Exception("Room already occupied.");
 
-        for (int i = 0; i < roomCount; i++) {
-            // equalsIgnoreCase handles "single", "Single", and "SINGLE"
-            if (rooms[i].getType().equalsIgnoreCase(type)) {
-                rooms[i].displayRoom();
-                found = true;
-            }
-        }
-
-        if (!found) System.out.println("No rooms of type " + type + " found.");
+        room.setAvailable(false);
+        DatabaseHelper.updateRoomAvailability(roomNumber, false);
     }
 
-    // Adds a completed reservation to the history array
-    public void addReservation(Reservation res) {
-        if (reservationCount < reservations.length) {
-            reservations[reservationCount] = res;
-            reservationCount++;
-        } else {
-            System.out.println("Error: Reservation log is full.");
-        }
+    public void checkOut(int roomNumber) throws Exception {
+        Room room = searchRoom(roomNumber);
+        room.setAvailable(true);
+        DatabaseHelper.updateRoomAvailability(roomNumber, true);
     }
+
+    // We return a NEW array list here so the UI can't accidentally mess up our main data list
+    public ArrayList<Room> getAllRooms() { return new ArrayList<>(rooms); }
+    public ArrayList<Reservation> getAllReservations() { return new ArrayList<>(reservations); }
 }

@@ -1,24 +1,17 @@
 package Hotel;
 
-/*
-  The Payment class handles the financial transaction logic.
-  It verifies if the guest has provided enough cash and calculates change.
- */
+// Just a small helper class to do the checkout math.
 public class Payment {
 
     private double totalAmount;
-    private String method; // e.g., "Cash" or "Card"
+    private String method;
 
-    // Constructor: Sets the bill amount and payment type
     public Payment(double totalAmount, String method) {
         this.totalAmount = totalAmount;
         this.method = method;
     }
 
-    /*
-      Processes the payment by checking if the cash provided covers the total.
-     Returns true if payment is successful, false if insufficient.
-     */
+    // Returns true if they gave us enough money, false if they are short.
     public boolean processPayment(double cashGiven) {
         if (cashGiven >= totalAmount) {
             System.out.println("Processing " + method + " payment...");
@@ -29,9 +22,7 @@ public class Payment {
         }
     }
 
-    // Calculates and returns the change due to the guest
     public double calculateChange(double cashGiven) {
-
         return cashGiven - totalAmount;
     }
 }

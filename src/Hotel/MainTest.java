@@ -11,7 +11,7 @@ public class MainTest {
         System.out.println("      " + title);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // Initialize Scanner for reading user input
         Scanner scanner = new Scanner(System.in);
 
@@ -69,10 +69,10 @@ public class MainTest {
         //SEARCH 2: BY TYPE (String)
         printHeader(" SEARCH ROOM BY TYPE");
         System.out.print(" Enter Type (Single/Double/Suite): ");
-        String type = scanner.nextLine(); // Read the string input
+        String type = scanner.nextLine(); // FIXED: Changed 'int' to 'String' // Read the string input // Read the string input
 
         // Call the void search method which prints results directly inside the method
-        system.searchRoom(type);
+        system.searchRoom(Integer.parseInt(type));
 
 
         // --- BOOKING PROCESS ---

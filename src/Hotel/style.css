@@ -1,0 +1,732 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   GRAND HOTEL MANAGEMENT SYSTEM — LUXURY STYLESHEET v2
+   Palette: ivory · forest green · warm gold · ink · stone
+   Fonts:   Cormorant Garamond (display) + Jost (UI)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Scene root ──────────────────────────────────────────────────────── */
+.root {
+    -fx-background-color: #F2EDE3;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C2519;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SIDEBAR
+   ══════════════════════════════════════════════════════════════════════ */
+.sidebar {
+    -fx-background-color: #192E23;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 14, 0, 4, 0);
+    -fx-pref-width: 220;
+}
+
+/* Logo block */
+.sidebar-logo {
+    -fx-spacing: 3;
+}
+
+.logo-mark {
+    -fx-font-size: 22px;
+    -fx-text-fill: #C8B98A;
+    -fx-padding: 0 0 4 0;
+}
+
+.logo-name {
+    -fx-font-family: 'Cormorant Garamond', Georgia, serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #F2EDE3;
+    -fx-letter-spacing: 3px;
+}
+
+.logo-sub {
+    -fx-font-size: 9px;
+    -fx-font-weight: 500;
+    -fx-text-fill: rgba(200, 185, 138, 0.65);
+    -fx-letter-spacing: 2.5px;
+}
+
+/* Sidebar divider */
+.sidebar-sep {
+    -fx-padding: 0;
+}
+
+.sidebar-sep .line {
+    -fx-border-color: rgba(200, 185, 138, 0.18);
+}
+
+/* "NAVIGATION" section label */
+.sidebar-nav-label {
+    -fx-font-size: 9px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 2.5px;
+    -fx-text-fill: rgba(200, 185, 138, 0.4);
+}
+
+/* Nav items (HBox rows) */
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px;
+    -fx-cursor: hand;
+}
+
+.nav-item:hover {
+    -fx-background-color: rgba(200, 185, 138, 0.1);
+}
+
+.nav-item-active {
+    -fx-background-color: rgba(200, 185, 138, 0.16);
+    -fx-border-color: transparent transparent transparent rgba(200, 185, 138, 0.6);
+    -fx-border-width: 0 0 0 2.5px;
+    -fx-border-radius: 0 7px 7px 0;
+    -fx-padding: 10 12 10 11.5px;
+}
+
+.nav-icon {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(200, 185, 138, 0.5);
+    -fx-min-width: 18px;
+}
+
+.nav-text {
+    -fx-font-size: 12.5px;
+    -fx-font-weight: 400;
+    -fx-letter-spacing: 0.5px;
+    -fx-text-fill: rgba(242, 237, 227, 0.72);
+}
+
+.nav-item-active .nav-icon {
+    -fx-text-fill: #C8B98A;
+}
+
+.nav-item-active .nav-text {
+    -fx-text-fill: #F2EDE3;
+    -fx-font-weight: 500;
+}
+
+/* Version footer */
+.sidebar-version {
+    -fx-font-size: 10px;
+    -fx-text-fill: rgba(200, 185, 138, 0.28);
+    -fx-letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SCROLL PANE
+   ══════════════════════════════════════════════════════════════════════ */
+.main-scroll {
+    -fx-background-color: #F2EDE3;
+    -fx-background: #F2EDE3;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.main-scroll > .viewport {
+    -fx-background-color: #F2EDE3;
+}
+
+.main-scroll .scroll-bar:vertical {
+    -fx-pref-width: 6px;
+    -fx-background-color: transparent;
+}
+
+.main-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.main-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(25, 46, 35, 0.2);
+    -fx-background-radius: 3px;
+}
+
+.main-scroll .scroll-bar:vertical .increment-button,
+.main-scroll .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PAGE BANNER
+   ══════════════════════════════════════════════════════════════════════ */
+.page-banner {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent rgba(44,37,25,0.09) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.page-title {
+    -fx-font-family: 'Cormorant Garamond', Georgia, serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: 500;
+    -fx-font-style: italic;
+    -fx-text-fill: #192E23;
+}
+
+.page-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7A6E5F;
+    -fx-letter-spacing: 0.3px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   CONTENT CARDS
+   ══════════════════════════════════════════════════════════════════════ */
+.content-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(44, 37, 25, 0.09);
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 2);
+}
+
+.card-section-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 2.8px;
+    -fx-text-fill: #7A6E5F;
+    -fx-padding: 0 0 4 0;
+    -fx-border-color: transparent transparent rgba(44,37,25,0.1) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   STAT CARDS
+   ══════════════════════════════════════════════════════════════════════ */
+.stat-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(44, 37, 25, 0.09);
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 2);
+}
+
+.stat-icon {
+    -fx-font-size: 14px;
+    -fx-text-fill: #C8B98A;
+    -fx-padding: 0 0 6 0;
+}
+
+.stat-value {
+    -fx-font-family: 'Cormorant Garamond', Georgia, serif;
+    -fx-font-size: 30px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #192E23;
+    -fx-padding: 0 0 2 0;
+}
+
+.stat-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1.8px;
+    -fx-text-fill: #7A6E5F;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   FORM ELEMENTS
+   ══════════════════════════════════════════════════════════════════════ */
+.form-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #7A6E5F;
+    -fx-letter-spacing: 0.3px;
+}
+
+.styled-field {
+    -fx-background-color: #F9F6F1;
+    -fx-background-radius: 7px;
+    -fx-border-color: rgba(44, 37, 25, 0.14);
+    -fx-border-radius: 7px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #2C2519;
+    -fx-prompt-text-fill: rgba(44, 37, 25, 0.3);
+    -fx-padding: 10 14 10 14;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+    -fx-font-size: 13px;
+    -fx-pref-height: 38px;
+}
+
+.styled-field:focused {
+    -fx-border-color: #192E23;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, rgba(25,46,35,0.12), 8, 0, 0, 2);
+}
+
+.styled-field:hover {
+    -fx-border-color: rgba(25, 46, 35, 0.38);
+    -fx-background-color: #FFFFFF;
+}
+
+/* ── Radio buttons ──────────────────────────────────────────────────── */
+.styled-radio {
+    -fx-text-fill: #2C2519;
+    -fx-font-size: 13px;
+}
+
+.styled-radio .radio {
+    -fx-border-color: rgba(44, 37, 25, 0.3);
+    -fx-background-color: white;
+}
+
+.styled-radio:selected .radio {
+    -fx-border-color: #192E23;
+}
+
+.styled-radio:selected .dot {
+    -fx-background-color: #192E23;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════════════════════════ */
+.btn-primary {
+    -fx-background-color: #192E23;
+    -fx-text-fill: #F2EDE3;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1.2px;
+    -fx-padding: 10 22 10 22;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #254D3C;
+    -fx-effect: dropshadow(gaussian, rgba(25,46,35,0.25), 8, 0, 0, 2);
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #102018;
+    -fx-translate-y: 1;
+    -fx-effect: none;
+}
+
+.btn-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: #192E23;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1.2px;
+    -fx-padding: 10 22 10 22;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-border-color: rgba(25, 46, 35, 0.45);
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.btn-outline:hover {
+    -fx-background-color: rgba(25, 46, 35, 0.06);
+}
+
+.btn-ghost {
+    -fx-background-color: rgba(200, 185, 138, 0.18);
+    -fx-text-fill: #5A4A2A;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1px;
+    -fx-padding: 10 18 10 18;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-border-color: rgba(200, 185, 138, 0.45);
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.btn-ghost:hover {
+    -fx-background-color: rgba(200, 185, 138, 0.32);
+}
+
+.btn-checkout {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8B4020;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 0.8px;
+    -fx-padding: 6 14 6 14;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: rgba(139, 64, 32, 0.4);
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.btn-checkout:hover {
+    -fx-background-color: rgba(139, 64, 32, 0.07);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   TABLE VIEWS
+   ══════════════════════════════════════════════════════════════════════ */
+.styled-table {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.styled-table .column-header-background {
+    -fx-background-color: #F5F0E6;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.styled-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10 14 10 14;
+}
+
+.styled-table .column-header .label {
+    -fx-font-size: 10px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1.8px;
+    -fx-text-fill: #7A6E5F;
+}
+
+.styled-table .table-row-cell {
+    -fx-background-color: #FEFCF8;
+    -fx-border-color: transparent transparent rgba(44,37,25,0.07) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.styled-table .table-row-cell:odd {
+    -fx-background-color: #FDFAF4;
+}
+
+.styled-table .table-row-cell:hover {
+    -fx-background-color: #F3EDE0;
+}
+
+.styled-table .table-row-cell:selected {
+    -fx-background-color: rgba(25, 46, 35, 0.08);
+}
+
+.styled-table .table-cell {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C2519;
+    -fx-padding: 10 14 10 14;
+    -fx-border-color: transparent;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+}
+
+.styled-table .table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.styled-table .placeholder .label {
+    -fx-font-style: italic;
+    -fx-text-fill: rgba(44,37,25,0.3);
+    -fx-font-size: 12.5px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   GUEST GRID
+   ══════════════════════════════════════════════════════════════════════ */
+.guest-table-header {
+    -fx-font-size: 10px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1.8px;
+    -fx-text-fill: #7A6E5F;
+}
+
+.guest-grid .label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C2519;
+}
+
+.empty-state {
+    -fx-font-size: 13px;
+    -fx-font-style: italic;
+    -fx-text-fill: rgba(44,37,25,0.35);
+    -fx-padding: 10 0 4 0;
+}
+
+/* ── Status badges ──────────────────────────────────────────────────── */
+.badge-in {
+    -fx-background-color: rgba(25, 46, 35, 0.1);
+    -fx-text-fill: #192E23;
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-padding: 3 10 3 10;
+    -fx-background-radius: 20px;
+    -fx-letter-spacing: 0.5px;
+}
+
+.badge-out {
+    -fx-background-color: rgba(44, 37, 25, 0.07);
+    -fx-text-fill: #7A6E5F;
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-padding: 3 10 3 10;
+    -fx-background-radius: 20px;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   FEEDBACK / PREVIEW LABELS
+   ══════════════════════════════════════════════════════════════════════ */
+.success-msg {
+    -fx-text-fill: #1B4A30;
+    -fx-font-size: 12.5px;
+    -fx-padding: 8 14 8 14;
+    -fx-background-color: rgba(25, 46, 35, 0.08);
+    -fx-background-radius: 7px;
+    -fx-border-color: rgba(25, 46, 35, 0.15);
+    -fx-border-radius: 7px;
+    -fx-border-width: 1px;
+}
+
+.cost-preview {
+    -fx-text-fill: #7A6E5F;
+    -fx-font-size: 12.5px;
+    -fx-font-style: italic;
+    -fx-padding: 2 0 2 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RECEIPT BOX
+   ══════════════════════════════════════════════════════════════════════ */
+.receipt-box {
+    -fx-background-color: #FDFAF4;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(44, 37, 25, 0.15);
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-style: dashed;
+    -fx-padding: 16 20 16 20;
+    -fx-spacing: 5;
+}
+
+.receipt-line {
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #3D3322;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   STATUS BAR
+   ══════════════════════════════════════════════════════════════════════ */
+.status-bar-wrapper {
+    -fx-background-color: #EBE5D8;
+    -fx-border-color: rgba(44, 37, 25, 0.1) transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 5 18 5 18;
+}
+
+.status-bar {
+    -fx-font-size: 11.5px;
+    -fx-text-fill: rgba(44, 37, 25, 0.5);
+    -fx-letter-spacing: 0.3px;
+    -fx-background-color: transparent;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SEPARATOR
+   ══════════════════════════════════════════════════════════════════════ */
+.separator .line {
+    -fx-border-color: rgba(44, 37, 25, 0.1);
+    -fx-border-width: 0.5px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   ALERT DIALOGS
+   ══════════════════════════════════════════════════════════════════════ */
+.dialog-pane {
+    -fx-background-color: #F5F0E8;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(44, 37, 25, 0.1);
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+}
+
+.dialog-pane .content.label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C2519;
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #EDE8DE;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 16 22 16 22;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-font-family: 'Cormorant Garamond', Georgia, serif;
+    -fx-font-size: 17px;
+    -fx-text-fill: #192E23;
+    -fx-font-style: italic;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: #192E23;
+    -fx-text-fill: #F2EDE3;
+    -fx-padding: 8 20 8 20;
+    -fx-background-radius: 7px;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-letter-spacing: 1px;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: #254D3C;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RECEPTION CHAT
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Panel card */
+.chat-panel {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(44, 37, 25, 0.09);
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 10, 0, 0, 2);
+}
+
+/* Header strip */
+.chat-header {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-border-color: transparent transparent rgba(44,37,25,0.09) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Avatar circle */
+.chat-avatar {
+    -fx-min-width: 38px;
+    -fx-min-height: 38px;
+    -fx-pref-width: 38px;
+    -fx-pref-height: 38px;
+    -fx-background-color: #192E23;
+    -fx-background-radius: 19px;
+    -fx-text-fill: #C8B98A;
+    -fx-font-family: 'Cormorant Garamond', Georgia, serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-alignment: center;
+}
+
+.chat-name {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #2C2519;
+}
+
+.chat-status {
+    -fx-font-size: 11px;
+    -fx-text-fill: #4A8C6A;
+}
+
+/* Message feed scroll */
+.chat-scroll {
+    -fx-background-color: #FDFAF4;
+    -fx-background: #FDFAF4;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: #FDFAF4;
+}
+
+/* Input area */
+.chat-input-area {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0 0 12px 12px;
+    -fx-border-color: rgba(44,37,25,0.09) transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.chat-input {
+    -fx-background-color: #F5F0E6;
+    -fx-background-radius: 20px;
+    -fx-border-color: rgba(44,37,25,0.12);
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+    -fx-padding: 9 16 9 16;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C2519;
+    -fx-prompt-text-fill: rgba(44,37,25,0.32);
+    -fx-font-family: 'Jost', 'Segoe UI', sans-serif;
+}
+
+.chat-input:focused {
+    -fx-border-color: #192E23;
+    -fx-background-color: #FFFFFF;
+}
+
+/* ── Bubbles ────────────────────────────────────────────────────────── */
+.chat-bubble {
+    -fx-padding: 9 13 9 13;
+    -fx-background-radius: 14px;
+    -fx-max-width: 280px;
+}
+
+/* Sent (own side) — forest green */
+.bubble-sent {
+    -fx-background-color: #192E23;
+    -fx-background-radius: 14px 14px 4px 14px;
+}
+
+.bubble-sent .bubble-text {
+    -fx-text-fill: #F2EDE3;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+.bubble-sent .bubble-time {
+    -fx-text-fill: rgba(242,237,227,0.5);
+    -fx-font-size: 10px;
+    -fx-alignment: center-right;
+}
+
+/* Received (other side) — warm ivory */
+.bubble-received {
+    -fx-background-color: #EDE8DE;
+    -fx-background-radius: 14px 14px 14px 4px;
+}
+
+.bubble-received .bubble-sender {
+    -fx-font-size: 10.5px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #7A6E5F;
+    -fx-letter-spacing: 0.5px;
+}
+
+.bubble-received .bubble-text {
+    -fx-text-fill: #2C2519;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+.bubble-received .bubble-time {
+    -fx-text-fill: rgba(44,37,25,0.38);
+    -fx-font-size: 10px;
+}
+
+/* System / info messages */
+.chat-system-msg {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(44,37,25,0.38);
+    -fx-font-style: italic;
+    -fx-padding: 4 14 4 14;
+    -fx-background-color: rgba(44,37,25,0.05);
+    -fx-background-radius: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   END
+   ═══════════════════════════════════════════════════════════════════════ */

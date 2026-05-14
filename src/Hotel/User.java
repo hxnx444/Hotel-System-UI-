@@ -1,31 +1,26 @@
 package Hotel;
-
-/*
-The User class is an ABSTRACT parent class.
-It serves as a template for specific users like Guest, Admin, or Receptionist.
-"Abstract" means you cannot say 'new User()'; you must create a specific child class.
-*/
+//----abstract class----
+// This is our base template. We never actually make a generic "User".
+// We only make Admins, Guests, or Receptionists, which all share these basic variables.
 public abstract class User {
-
-    // Protected visibility allows child classes (Guest, Admin) to access these directly
     protected int id;
     protected String name;
 
-    /* Constructor: Initializes the common attributes found in all users */
+    public User() {}
+
     public User(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    // Getter method to retrieve the user's name
     public String getName() {
         return name;
     }
 
-    /*
-    ABSTRACT METHOD (The Rule)
-    This method has no body code here.
-    It forces every child class to write their own specific version of displayInfo().
-    */
+    // Making this 'abstract' forces all child classes (like Admin or Guest)
+    // to write their own version of this method.
     public abstract void displayInfo();
 }
+/*User.java is an Abstract Class (public abstract class User).
+It has an abstract method public abstract void displayInfo();
+ that forces Guest.java, Admin.java, and Receptionist.java to provide their own implementation.*/

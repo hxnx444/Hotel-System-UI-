@@ -1,28 +1,29 @@
 package Hotel;
-
-/*
- The Guest class represents a customer staying at the hotel.
- It inherits common attributes (id, name) from the User class
- *and adds specific contact information.
- */
+//----Inheritence----
 public class Guest extends User {
-
-    // specific field for Guest
     private String phone;
-
-    // Constructor: Initializes the Guest using the parent User constructor
+/*OVERLOADING
+Guest.java has two constructors (one with an ID from the database,
+one without an ID for walk-ins). This is constructor overloading.
+ */
+    // We use this when loading a known guest from the database
     public Guest(int id, String name, String phone) {
-        super(id, name);    // Pass ID and Name to the User class
-        this.phone = phone; // Set the Guest-specific phone number
+        super(id, name);
+        this.phone = phone;
     }
 
-    /*
-     Displays information specific to a Guest.
-     This overrides the abstract method defined in the User class.
-     */
+    // We use this for walk-ins when we don't have a database ID for them yet
+    public Guest(String name, String phone) {
+        super(0, name); // Just pass 0 as a dummy ID
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     @Override
     public void displayInfo() {
-
         System.out.println("Guest: " + name + " | Phone: " + phone);
     }
 }
